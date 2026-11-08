@@ -1,42 +1,58 @@
-# 📄 PDF Information Extractor
+# 📄 AI PDF Information Extractor & OCR Analyzer
 
-> **App Root Folder:** `/mnt/1fc0b605-b95c-4190-ba0a-ae87f22cc120/development/pdf-information-extractor`
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![PyMuPDF](https://img.shields.io/badge/PyMuPDF-fitz-2E8555?style=for-the-badge)](https://pymupdf.readthedocs.io/)
+[![Ollama](https://img.shields.io/badge/Ollama-Gemma_3-000000?style=for-the-badge&logo=ollama&logoColor=white)](https://ollama.ai)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-
-A high-performance, web-based PDF analysis tool that combines traditional text parsing with advanced local vision-language AI models to perform Optical Character Recognition (OCR), document summarization, and embedded image description.
-
----
-
-## ✨ Features
-
-- **⚡ Fast Standard Extraction**: Uses `PyMuPDF` to instantly extract and index native text content and structure from digital PDFs.
-- **👁️ AI-Powered OCR**: Automatically processes scanned PDFs or page images using `Ollama` with `gemma3` to perform local, private OCR.
-- **📝 Document Summarization**: Leverages AI to read the opening pages and generate a concise general description and summary of the document.
-- **🖼️ Embedded Image Analysis**: Automatically extracts images from the PDF, passes them to a local vision model, and returns descriptions of their visual content.
-- **💻 Simple Web Interface**: Clean, responsive frontend designed with HTML5, CSS3, and JavaScript for seamless drag-and-drop file upload and structured results visualization.
+A high-performance, privacy-first web application combining native PDF text parsing with local vision-language AI models. Extract text, perform offline OCR on scanned documents, auto-generate executive summaries, and analyze embedded charts/images using **PyMuPDF**, **FastAPI**, and **Ollama (Gemma 3)**.
 
 ---
 
-## 🛠️ Technical Stack
+## ✨ Key Features & Capabilities
 
-- **Backend**: FastAPI (Python 3.10+), Uvicorn ASGI Server
-- **Text & Media Processing**: PyMuPDF (fitz)
-- **AI Inference Engine**: Ollama (Running the multimodal `gemma3` model locally)
-- **Frontend**: Vanilla HTML5, CSS, and ES6 Javascript
-
----
-
-## 📋 Prerequisites
-
-Before running the application, make sure you have:
-1. **Python 3.10+**
-2. **Ollama** installed on your system (Download from [ollama.ai](https://ollama.ai))
+- ⚡ **High-Speed Native Parsing**: Extracts digital text, structural metadata, and page layouts in milliseconds via `PyMuPDF`.
+- 👁️ **100% Offline AI OCR**: Seamlessly transcribes scanned documents and handwritten forms using local vision-language inference with zero data leakage to cloud servers.
+- 📝 **Automated Document Summaries**: Synthesizes multi-page reports, research papers, and invoices into concise executive briefings.
+- 🖼️ **Visual Content & Diagram Description**: Extracts embedded figures, diagrams, and photos from PDFs and produces contextual captions.
+- 🖥️ **Drag-and-Drop Web Interface**: Clean, responsive frontend with real-time analysis progress indicators and tabbed inspection views.
 
 ---
 
-## 🚀 Installation & Setup
+## 🛠️ Architecture & Tech Stack
 
-### 1. Clone the Repository
+| Layer | Component | Description |
+| :--- | :--- | :--- |
+| **API Server** | [FastAPI](https://fastapi.tiangolo.com/) | Asynchronous request processing and streaming endpoints |
+| **Parsing Engine** | [PyMuPDF (fitz)](https://pymupdf.readthedocs.io/) | High-speed C-backed PDF parsing and rasterization |
+| **Vision & Reasoning** | [Ollama](https://ollama.ai) + `gemma3` | Local multimodal vision-language model for OCR and image comprehension |
+| **Frontend** | Vanilla JS + Modern CSS | Lightweight zero-dependency user interface |
+
+---
+
+## 📂 Project Structure
+
+```text
+pdf-information-extractor/
+├── main.py               # FastAPI backend, upload handler & Ollama client
+├── requirements.txt      # Python dependencies
+├── static/
+│   └── style.css         # Responsive UI styling
+├── templates/
+│   └── index.html        # Interactive upload & analysis dashboard
+└── README.md             # Documentation
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- **Python 3.10+**
+- **Ollama** installed ([download instructions](https://ollama.ai))
+
+### 1. Clone Repository
 ```bash
 git clone https://github.com/AnupamKhurana/pdf-onformation-extractor.git
 cd pdf-onformation-extractor
@@ -44,34 +60,51 @@ cd pdf-onformation-extractor
 
 ### 2. Set Up Virtual Environment & Dependencies
 ```bash
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 3. Pull the Local Multimodal AI Model
-Ensure Ollama is running in the background, then pull the `gemma3` model:
+### 3. Pull Local Vision AI Model
+Start the Ollama daemon and pull the multimodal `gemma3` model:
 ```bash
 ollama pull gemma3
 ```
 
-### 4. Run the Application
+### 4. Launch the Web Application
 ```bash
-uvicorn main:app --reload
+uvicorn main:app --reload --host 127.0.0.1 --port 8000
 ```
-Open your browser and navigate to [http://localhost:8000](http://localhost:8000).
+Open your browser at: **`http://localhost:8000`**
 
 ---
 
-## 📂 Project Structure
+## 💡 How It Works
 
 ```
-pdf-onformation-extractor/
-├── main.py               # FastAPI backend app & Ollama interface
-├── requirements.txt      # Python dependencies
-├── static/
-│   └── style.css         # Styling for the web dashboard
-├── templates/
-│   └── index.html        # HTML layout for upload & display
-└── README.md             # This guide
+  [ Upload PDF ]
+        │
+        ├──▶ Digital PDF? ──▶ [ PyMuPDF Fast Extract ] ──▶ Structured Text
+        │
+        └──▶ Scanned / Images? ─▶ [ Rasterize Page ] ──▶ [ Ollama Gemma 3 Vision ] ──▶ AI Transcribed Text
+                                                                 │
+                                                                 └──▶ [ Executive Summary & Captions ]
 ```
+
+---
+
+## 🔒 Privacy & Security
+
+All PDF processing, rasterization, and AI vision inference run **completely on your local machine**. No proprietary documents, personal files, or scan data are ever transmitted to third-party APIs.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit issues or pull requests to improve extraction accuracy, support additional models, or enhance UI features.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the `LICENSE` file for details.
