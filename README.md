@@ -1,5 +1,8 @@
 # 📄 PDF Information Extractor
 
+> **App Root Folder:** `/mnt/1fc0b605-b95c-4190-ba0a-ae87f22cc120/development/pdf-information-extractor`
+
+
 A high-performance, web-based PDF analysis tool that combines traditional text parsing with advanced local vision-language AI models to perform Optical Character Recognition (OCR), document summarization, and embedded image description.
 
 ---
